@@ -22,7 +22,7 @@ gitmodule.initialize = () ->
 #region exposedFunctions
 gitmodule.pull = (base) ->
     log "gitmodule.pull"
-    await git(base).pull()
+    await git(base).pull("origin", "master")
     return
 
 gitmodule.checkoutMaster = (base) ->
