@@ -4,6 +4,8 @@ pushcommandmodule = {name: "pushcommandmodule"}
 #region node_modules
 gitmodulesHandler = require "gitmodules-file-handler"
 c = require "chalk"
+CLUI = require "clui"
+Spinner = CLUI.Spinner
 #endregion
 
 #region localModules
@@ -74,8 +76,13 @@ pushcommandmodule.execute = (message) ->
     log "pushcommandmodule.execute"
     if !message then message  = "thingysync push"
     basePath = pathHandler.basePath
-    await handleLevel(basePath, message)
-    printFailCollection()
+    statusMessage = "pushing recursively..."
+    status = new Spinner(statusMessage)
+    status.start()
+    try await handleLevel(basePath, message)
+    finally
+        status.stop()
+        printFailCollection()
     return
 #endregion
 

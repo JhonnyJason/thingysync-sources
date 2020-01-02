@@ -4,6 +4,8 @@ pullcommandmodule = {name: "pullcommandmodule"}
 #region node_modules
 gitmodulesHandler = require "gitmodules-file-handler"
 c = require "chalk"
+CLUI = require "clui"
+Spinner = CLUI.Spinner
 #endregion
 
 #region localModules
@@ -75,8 +77,13 @@ handleLevel = (path) ->
 pullcommandmodule.execute = ->
     log "pullcommandmodule.execute"
     basePath = pathHandler.basePath
-    await handleLevel(basePath)
-    printFailCollection()
+    statusMessage = "pulling recursively..."
+    status = new Spinner(statusMessage)
+    status.start()
+    try await handleLevel(basePath)
+    finally
+        status.stop()
+        printFailCollection()
     return
 #endregion
 

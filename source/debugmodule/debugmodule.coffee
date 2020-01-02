@@ -9,11 +9,11 @@ debugmodule.modulesToDebug =
     unbreaker: true
     # cliargumentsmodule: true
     # configmodule: true
-    gitmodule: true
+    # gitmodule: true
     # mainprocessmodule: true
     # pathhandlermodule: true
     # pullcommandmodule: true
-    pushcommandmodule: true
+    # pushcommandmodule: true
     # startupmodule: true
     
 module.exports = debugmodule
