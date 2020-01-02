@@ -1,7 +1,9 @@
 mainprocessmodule = {name: "mainprocessmodule"}
 
 #region modulesFromEnvironment
-cfg = null
+pathHandler = null
+pushCommand = null
+pullCommand = null
 #endregion
 
 #region logPrintFunctions
@@ -16,15 +18,22 @@ print = (arg) -> console.log(arg)
 ##############################################################################
 mainprocessmodule.initialize = () ->
     log "mainprocessmodule.initialize"
-    cfg = allModules.configmodule
+    pathHandler = allModules.pathhandlermodule
+    pushCommand = allModules.pushcommandmodule
+    pullCommand = allModules.pullcommandmodule
     return 
 
 #region internalFunctions
 #endregion
 
 #region exposedFunctions
-mainprocessmodule.execute = () ->
+mainprocessmodule.execute = (e) ->
     log "mainprocessmodule.execute"
+    pathHandler.digestArgument(e.path)
+    switch e.command
+        when "pull" then await pullCommand.execute()
+        when "push" then await pushCommand.execute(e.message)
+        else throw "Unknown Command: " + e.command
     return
 #endregion
 

@@ -22,10 +22,10 @@
   "homepage": "https://github.com/JhonnyJason/thingysync-output/#readme",
   "dependencies": {
     "chalk": "^2.4.2",
-    "clear": "0.1.0",
     "clui": "^0.3.6",
-    "figlet": "^1.2.4",
+    "gitmodules-file-handler": "^0.1.1",
     "inquirer": "^7.0.0",
-    "meow": "^5.0.0"
+    "meow": "^5.0.0",
+    "simple-git": "^1.129.0"
   }
 }

@@ -18,34 +18,62 @@ cliargumentsmodule.initialize = () ->
 getHelpText = ->
     log "getHelpText"
     return """
-        Usage
-            $ 
-    
-        Options
-            optional:
+    Usage 
+        $ thingysync <arg1> <arg2> <arg3>
+
+    Options
+        required:
+            arg1, --command <command> , -c <command>
+                command can either be "push" or "pull"
+
+        optional:
+            arg2, --path <path>, -p <path>
+                the path to the base repository (may be relative or absolute)
+            arg3, --message <message>, -m <message>
+                commit message when pushing
                 
-        Examples
-            $  -c
-            ...
+    Examples
+        $  thingysync pull ..
+
     """
 
 getOptions = ->
     log "getOptions"
     return {
         flags:
-            option: #optionsname
-                type: "boolean" # or string
-                alias: "o"
+            command:
+                type: "string"
+                alias: "c"
+            path:
+                type: "string"
+                alias: "p"
+            message: 
+                type: "string"
+                alias: "m"
     }
 
 extractMeowed = (meowed) ->
     log "extractMeowed"
 
-    option = false
-    if meowed.flags.option then option = true
+    command = null
+    path = null
+    message = null
 
-    return {option}
+    if meowed.input[0]
+        command = meowed.input[0]
+    if meowed.input[1]
+        path = meowed.input[1]
+    if meowed.input[2]
+        message = meowed.input[2]
 
+    if meowed.flags.command
+        command = meowed.flags.command
+    if meowed.flags.path
+        path = meowed.flags.path
+    if meowed.flags.message
+        message = meowed.flags.message
+
+    return {command, path, message}
 #endregion
 
 #region exposed functions
@@ -54,6 +82,7 @@ cliargumentsmodule.extractArguments = ->
     options = getOptions()
     meowed = meow(getHelpText(), getOptions())
     extract = extractMeowed(meowed)
+    if!extract.command then throw "Usage Error! Command must be specified!"
     return extract
 
 #endregion exposed functions

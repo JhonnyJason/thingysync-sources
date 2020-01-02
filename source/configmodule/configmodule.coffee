@@ -2,7 +2,7 @@ configmodule = {name: "configmodule"}
 
 #region exposedProperties
 configmodule.cli =
-    name: ""
+    name: "thingysync"
 #endregion
 
 #region logPrintFunctions
