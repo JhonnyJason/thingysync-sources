@@ -1,7 +1,7 @@
 {
-  "name": "temporaryFiles",
+  "name": "thingysync",
   "version": "0.0.1",
-  "description": "",
+  "description": "Small helper tool to help syncronisation of our thingies using git",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -10,16 +10,16 @@
   "author": "Lenard Frommelt lenard.frommelt@gne.or.at",
   "license": "Unlicense",
   "bin": {
-    "temporaryFiles": "./index.js"
+    "thingysync": "./index.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://.git"
+    "url": "git+https://github.com/JhonnyJason/thingysync.git"
   },
   "bugs": {
-    "url": "https://"
+    "url": "https://github.com/JhonnyJason/thingysync/issues"
   },
-  "homepage": "https://",
+  "homepage": "https://github.com/JhonnyJason/thingysync-output/#readme",
   "dependencies": {
     "chalk": "^2.4.2",
     "clear": "0.1.0",

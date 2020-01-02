@@ -1,4 +1,4 @@
-# noname - 
+# thingysync - Small helper tool to help syncronisation of our thingies using git 
 
 # Why?
 
