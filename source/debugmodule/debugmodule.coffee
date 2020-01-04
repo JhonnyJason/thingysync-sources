@@ -13,7 +13,7 @@ debugmodule.modulesToDebug =
     # mainprocessmodule: true
     # pathhandlermodule: true
     # pullcommandmodule: true
-    pushcommandmodule: true
+    # pushcommandmodule: true
     # startupmodule: true
     
 module.exports = debugmodule
