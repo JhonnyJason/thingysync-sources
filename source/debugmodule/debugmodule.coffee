@@ -11,9 +11,9 @@ debugmodule.modulesToDebug =
     # configmodule: true
     # gitmodule: true
     # mainprocessmodule: true
-    pathhandlermodule: true
-    pullcommandmodule: true
-    # pushcommandmodule: true
+    # pathhandlermodule: true
+    # pullcommandmodule: true
+    pushcommandmodule: true
     # startupmodule: true
     
 module.exports = debugmodule
