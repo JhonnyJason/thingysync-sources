@@ -2,6 +2,7 @@ pushcommandmodule = {name: "pushcommandmodule"}
 
 #region modulesFromTheEnvironment
 #region node_modules
+fs = require "fs"
 gitmodulesHandler = require "gitmodules-file-handler"
 c = require "chalk"
 CLUI = require "clui"
@@ -60,15 +61,25 @@ pushLevel = (path, message) ->
 handleLevel = (path, message) ->
     log "handleLevel"    
     modulesFile = pathHandler.resolve(path, ".gitmodules")
-    levelModules = await gitmodulesHandler.readNewGitmodulesFile(modulesFile)
-    modules = levelModules.getAllModules()
-    nextLevelPaths = (pathHandler.resolve(path,name) for name of modules)
-    
-    promises = nextLevelPaths.map(handleLevel)
-    await Promise.all(promises)
+    exists = await checkFileExists(modulesFile)
+    if exists
+        log "moduleFile existed: " + modulesFile
+        levelModules = await gitmodulesHandler.readNewGitmodulesFile(modulesFile)
+        modules = levelModules.getAllModules()
+        nextLevelPaths = (pathHandler.resolve(path,name) for name of modules)
+        
+        promises = nextLevelPaths.map(handleLevel)
+        await Promise.all(promises)
 
     await pushLevel(path, message)
     return
+
+checkFileExists = (path) ->
+    log "checkFileExists"
+    try stat = await fs.promises.stat(path)
+    catch err then return false
+    return stat.isFile()
+
 #endregion
 
 #region exposedFunctions

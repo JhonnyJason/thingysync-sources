@@ -3,6 +3,7 @@ pullcommandmodule = {name: "pullcommandmodule"}
 #region modulesFromTheEnvironment
 #region node_modules
 gitmodulesHandler = require "gitmodules-file-handler"
+fs = require "fs"
 c = require "chalk"
 CLUI = require "clui"
 Spinner = CLUI.Spinner
@@ -64,6 +65,10 @@ handleLevel = (path) ->
     await pullLevel(path)
     
     modulesFile = pathHandler.resolve(path, ".gitmodules")
+    exists = await checkFileExists(modulesFile)
+    if !exists then return
+    log "moduleFile existed: " + modulesFile
+
     levelModules = await gitmodulesHandler.readNewGitmodulesFile(modulesFile)
     modules = levelModules.getAllModules()
     nextLevelPaths = (pathHandler.resolve(path,name) for name of modules)
@@ -71,6 +76,13 @@ handleLevel = (path) ->
     promises = nextLevelPaths.map(handleLevel)
     await Promise.all(promises)
     return
+
+checkFileExists = (path) ->
+    log "checkFileExists"
+    try stat = await fs.promises.stat(path)
+    catch err then return false
+    return stat.isFile()
+
 #endregion
 
 #region exposedFunctions
